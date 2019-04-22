@@ -1,0 +1,4 @@
+Metrics that are commonly used to evaluate the performance of random forest algorithms:
+
+1. Accuracy on the test set
+    If the test set accurately reflects the structure of the "real world" data, the performance on the test set will
