@@ -20,16 +20,16 @@ class DecisionTree:
         self.split_score = float('inf')
         self.split_col = None
         self.split_row = None
-        self.treeBuilder()
+        self.tree_builder()
 
-    def isLeaf(self):
+    def is_leaf(self):
         """ If the data set passed on has only one row, you're at a leaf. Can modify to account for min_leaf
         """
         return self.split_score == float('inf')
 
-    def treeBuilder(self):
-        self.split_col, split_row, self.split_score, ids_rhs, ids_lhs = self.findBestSplit()
-        if self.isLeaf():
+    def tree_builder(self):
+        self.split_col, split_row, self.split_score, ids_rhs, ids_lhs = self.find_best_split()
+        if self.is_leaf():
             return
         else:
             self.split_row = self.x.iloc[split_row, self.split_col]
@@ -40,7 +40,7 @@ class DecisionTree:
             self.right = DecisionTree(x_right, y_right)
             self.left = DecisionTree(x_left, y_left)
 
-    def findBestSplit(self):
+    def find_best_split(self):
         """The best split minimizes variance. All possible values across rows and columns are tried
         """
         split_col, split_row, split_score, ids_rhs, ids_lhs = None, None, float('inf'), None, None
@@ -48,12 +48,12 @@ class DecisionTree:
         n = self.x.shape[1]
         for row in range(r):
             for col in range(n):
-                score_, rhs_, lhs_ = self.scoreSplit(row, col)
+                score_, rhs_, lhs_ = self.score_split(row, col)
                 if score_ < split_score:
                     split_col, split_row, split_score, ids_rhs, ids_lhs = col, row, score_, rhs_, lhs_
         return split_col, split_row, split_score, ids_rhs, ids_lhs
 
-    def scoreSplit(self, row, col):
+    def score_split(self, row, col):
         """ The score is a weighted average of the standard deviation of the group of rows with y > split and the rows with values y <= split
         Return: the score of the split identified by row and col
         """
@@ -68,31 +68,26 @@ class DecisionTree:
         score = std_rhs * sum(ids_rhs) + std_lhs * sum(ids_lhs)
         return score, ids_rhs, ids_lhs
 
-    def treeTraversal(self):
+    def tree_traversal(self):
         """ Traverse a tree and print out all the leaves
         """
-        if self.isLeaf():
+        if self.is_leaf():
             print(self.value)
         else:
             print('split col:', self.split_col)
             print('split row:', self.split_row)
             print('samples', self.x.shape[0])
             print('split value:', self.value)
-            self.left.treeTraversal()
-            self.right.treeTraversal()
+            self.left.tree_traversal()
+            self.right.tree_traversal()
 
     def predict(self, x_test):
-        """Calls a predictRow for every row of the x_test data frame"""
-        return [self.predictRow(row) for row in x_test.itertuples(index=False)]
+        """Calls predict_row for every row of the x_test data frame
+        """
+        return [self.predict_row(row) for row in x_test.itertuples(index=False)]
 
-    def predictRow(self, row):
-        if self.isLeaf(): return self.value
-        print(row)
-        print('row[self.split_col] > split_row', row[self.split_col] > self.split_row)
-        print('row[self.split_col]', row[self.split_col])
-        print('self.split_row', self.split_row)
-
+    def predict_row(self, row):
+        if self.is_leaf(): return self.value
         t = self.left if row[self.split_col] <= self.split_row else self.right
-        print(self.split_row)
-        print(self.value)
-        return t.predictRow(row)
+        return t.predict_row(row)
+

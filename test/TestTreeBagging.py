@@ -1,10 +1,8 @@
 import sys
-
 sys.path.append('../src')
 import unittest
 import numpy as np
 import pandas as pd
-import collections
 from src.TreeBagging import TreeBagging
 
 np.random.seed(100)
@@ -47,8 +45,8 @@ class TestTreeBagging(unittest.TestCase):
         x_test = pd.DataFrame({'YearMade': [1985, 1985, 2002]},
                               index=[0, 1, 2])
         test_predictions = self.m.predict(x_test)
-        my_predictions = [2000, 2000, 4000]
-        self.assertEqual(collections.Counter(test_predictions), collections.Counter(my_predictions))
+        expected_predictions = [2000, 2000, 4000]
+        self.assertEqual((np.array(test_predictions) == np.array(expected_predictions)).all(), True)
 
 
 if __name__ == '__main__':

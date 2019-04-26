@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-from src.DecisionTree import DecisionTree
+from DecisionTree import DecisionTree
 
 np.random.seed(100)
 

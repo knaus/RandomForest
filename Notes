@@ -1,4 +1,13 @@
 Metrics that are commonly used to evaluate the performance of random forest algorithms:
 
 1. Accuracy on the test set
-    If the test set accurately reflects the structure of the "real world" data, the performance on the test set will
+    If the test set accurately reflects the structure of the "real world" data, the performance on the test set will be indicative of the performance in production
+2. Confusion matrix
+    https://en.wikipedia.org/wiki/Sensitivity_and_specificity
+    Sensitivity = True Positive Rate = True Positives / (True Positives + False Negatives)
+    Specificity = True Negative Rate = True Negative / (True Negative + False Positives)
+
+    Here's a critique of using the AUROC measures to assess how good the classifier is:
+    http://www.fharrell.com/post/mlconfusion/
+    http://riceanalytics.com/db3/00232/riceanalytics.com/_download/Is%20the%20AUC%20the%20Best%20Measure.pdf
+
