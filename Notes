@@ -10,4 +10,7 @@ Metrics that are commonly used to evaluate the performance of random forest algo
     Here's a critique of using the AUROC measures to assess how good the classifier is:
     http://www.fharrell.com/post/mlconfusion/
     http://riceanalytics.com/db3/00232/riceanalytics.com/_download/Is%20the%20AUC%20the%20Best%20Measure.pdf
+    
+    Explanation of ROC curve
+    https://towardsdatascience.com/understanding-auc-roc-curve-68b2303cc9c5
 
